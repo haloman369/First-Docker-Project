@@ -1,0 +1,39 @@
+version: '3'
+services:
+    messaging:
+        build: './rabbitmq'
+    mysql:
+        image: 'mysql'
+        environment:
+            MYSQL_ROOT_PASSWORD: changeme
+            MYSQL_DATABASE: myDB
+        ports:
+          - "3308:3306"
+        volumes:
+         - ./database/myvol:/var/lib/mysql
+    admin:    
+        image: adminer    
+        ports:      
+         - "8080:8080"
+    front_end:
+        build: ./front_end
+        ports:
+            - 5000:5000
+   
+    recieveregis:
+        build: './Backend/RegisAuth'
+
+    recieveauth:
+        build: './Backend/loginAuth'
+
+    receiveregis:
+        build: './Backend/ReceiveRegistration'
+
+    sendregis:
+        build: './Backend/SendRegistration'
+
+    receivelogin:
+        build: './Backend/ReceiveLogin'
+
+    sendlogin:
+        build: './Backend/SendLogin'
